@@ -13,7 +13,7 @@ class Server(socketserver.TCPServer):
     timeout = 5
 
     def __init__(self, server_address, RequestHandlerClass, fwdata, bind_and_activate=True):
-        super().__init__(server_address, RequestHandlerClass, bind_and_activate=True)
+        super().__init__(server_address, RequestHandlerClass, bind_and_activate)
         self._fwdata = fwdata
         logger.debug('Socket server initialized')
 
