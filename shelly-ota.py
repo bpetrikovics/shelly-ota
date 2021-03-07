@@ -9,26 +9,11 @@ import threading
 import concurrent.futures
 
 
-def activate(basedir):
-    """ Look for and activate a virtualenv within the given base directory """
-
-    for dir in [f.path for f in os.scandir(basedir) if f.is_dir()]:
-        activate = os.path.join(basedir, dir, 'bin', 'activate_this.py')
-        if os.path.isfile(activate):
-            try:
-                exec(open(activate).read(), {'__file__': activate})
-            except Exception as exc:
-                print(
-                    'Could not run activate script. Module imports will most likely fail.', exc)
+from lib.shelly import ShellyFirmwareApi, ShellyDevice
+from lib.updateserver import UpdateServer
 
 
 if __name__ == '__main__':
-    BASEDIR = os.path.abspath(os.path.dirname(__file__))
-    activate(BASEDIR)
-
-    from lib.shelly import ShellyFirmwareApi, ShellyDevice
-    from lib.updateserver import UpdateServer
-
     parser = argparse.ArgumentParser(
         description="Tool to upgrade Shelly devices that do not have direct internet connectivity")
     parser.add_argument('-b', '--bindaddr',
