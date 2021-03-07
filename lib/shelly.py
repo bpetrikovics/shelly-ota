@@ -66,7 +66,7 @@ class ShellyFirmware:
         self._model = model
 
     def __repr__(self):
-        return f"<ShellyFirmware({self.model, self.version}, {self.url})>"
+        return f"<ShellyFirmware({self.model}, {self.version}, {self.url})>"
 
     @property
     def model(self):
