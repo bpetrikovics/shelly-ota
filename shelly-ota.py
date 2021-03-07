@@ -71,7 +71,7 @@ if __name__ == '__main__':
         if device.firmware == latest.version:
             logger.info(
                 '%s: No update available, skipping this device', device.address)
-            #continue
+            continue
 
         server.preload_firmware(latest)
         with concurrent.futures.ThreadPoolExecutor() as executor:
