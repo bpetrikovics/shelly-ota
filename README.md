@@ -36,7 +36,7 @@ optional arguments:
   -n, --dryrun          Don't actually perform upgrade
 ```
 
-* Make sure you specify the proper bind address with -b; this should correspond to an IP address reachable by the Shelly device
+* Will try to autodetect the bind address based on the interface that is related to the default gateway. IN case it's not the one you want to use, specify it with -b; this should correspond to an IP address reachable by the Shelly device.
 * Port is defaulted to 8080
 * Target can be a single device or a comma-separated list
 
