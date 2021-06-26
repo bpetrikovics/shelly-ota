@@ -28,7 +28,7 @@ Tool to upgrade Shelly devices that do not have direct internet connectivity
 optional arguments:
   -h, --help            show this help message and exit
   -b BINDADDR, --bindaddr BINDADDR
-                        Interface address (IP) to listen on (default: 10.255.1.150)
+                        Interface address (IP) to listen on (default: XX.XX.XX.XX)
   -p PORT, --port PORT  Port number for the OTA server
   -t TARGET, --target TARGET
                         Device address(es) or hostname(s) to upgrade, comma separated
