@@ -48,7 +48,7 @@ if __name__ == '__main__':
                         action='store_true',
                         required=False,
                         default=False,
-                        help='Don\'t actually perform upgrade (TBD)'
+                        help='Don\'t actually perform upgrade'
                         )
     args = parser.parse_args()
 

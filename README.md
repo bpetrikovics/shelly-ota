@@ -21,19 +21,19 @@ Home Assistant, for example).
 ## Usage
 
 ```
-usage: shelly-ota.py [-h] -b BINDADDR [-p PORT] -t TARGET [-v]
+usage: shelly-ota.py [-h] [-b BINDADDR] [-p PORT] -t TARGET [-v] [-n]
 
 Tool to upgrade Shelly devices that do not have direct internet connectivity
 
 optional arguments:
   -h, --help            show this help message and exit
   -b BINDADDR, --bindaddr BINDADDR
-                        Interface address (IP) to listen on
+                        Interface address (IP) to listen on (default: 10.255.1.150)
   -p PORT, --port PORT  Port number for the OTA server
   -t TARGET, --target TARGET
                         Device address(es) or hostname(s) to upgrade, comma separated
   -v, --verbose         Increase detail of logging
-
+  -n, --dryrun          Don't actually perform upgrade
 ```
 
 * Make sure you specify the proper bind address with -b; this should correspond to an IP address reachable by the Shelly device
