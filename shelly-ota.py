@@ -34,7 +34,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description="Tool to upgrade Shelly devices that do not have direct internet connectivity")
     parser.add_argument('-b', '--bindaddr',
-                        required=False, default=default_if, help=f'Interface address (IP) to listen on (default: {default_bind})')
+                        required=False, default=default_bind, help=f'Interface address (IP) to listen on (default: {default_bind})')
     parser.add_argument('-p', '--port',
                         required=False, default=8080, type=int, help='Port number for the OTA server')
     parser.add_argument('-t', '--target',
