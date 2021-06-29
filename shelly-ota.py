@@ -12,8 +12,12 @@ import concurrent.futures
 import netifaces
 
 
+import lib.venvtools as venvtools
 from lib.shelly import ShellyFirmwareApi, ShellyDevice
 from lib.updateserver import UpdateServer
+
+
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
 def ifdetect():
@@ -28,7 +32,7 @@ def ifdetect():
     return addrs[0]['addr']
 
 if __name__ == '__main__':
-
+    venvtools.activate(BASEDIR)
     default_bind = ifdetect()
 
     parser = argparse.ArgumentParser(
