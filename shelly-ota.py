@@ -9,14 +9,12 @@ import threading
 import concurrent.futures
 
 import lib.venvtools as venvtools
+from lib.shelly import ShellyFirmwareApi, ShellyDevice
+from lib.updateserver import UpdateServer
 
 
 venvtools.activate(os.path.abspath(os.path.dirname(__file__)))
-import netifaces
-
-
-from lib.shelly import ShellyFirmwareApi, ShellyDevice
-from lib.updateserver import UpdateServer
+import netifaces  # noqa: E402  # make sure we consider any venv before loading
 
 
 def ifdetect():
