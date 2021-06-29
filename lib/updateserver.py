@@ -55,16 +55,18 @@ class UpdateServer:
             'Starting updateserver on %s:%s', self._args.bindaddr, self._args.port)
 
     def preload_firmware(self, firmware):
-        logger.debug(f'Preloading firmware %s', str(firmware))
-        _filename = firmware.url.split('/')[-1]
+        logger.debug('Preloading firmware %s', str(firmware))
 
-        res = requests.get(firmware.url)
-        if res.status_code != 200:
-            raise RuntimeError('Unable to download firmware file')
+        if self._fwdata.get(firmware.model):
+            logger.debug('Firmware already fetched, skipping')
+        else:
+            res = requests.get(firmware.url)
+            if res.status_code != 200:
+                raise RuntimeError('Unable to download firmware file')
 
-        self._fwdata[firmware.model] = res.content
+            self._fwdata[firmware.model] = res.content
 
-        logger.debug('Firmware file preloaded, %d bytes', len(res.content))
+            logger.debug('Firmware file preloaded, %d bytes', len(res.content))
 
     def serve_once(self):
         global SERVED
