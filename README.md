@@ -1,5 +1,7 @@
 # Shelly OTA update tool
 
+[![CodeQL](https://github.com/bpetrikovics/shelly-ota/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/bpetrikovics/shelly-ota/actions/workflows/codeql-analysis.yml)
+
 This tool helps to upgrade Shelly devices that are behind a strict firewall or on a network segment without
 internet connectivity. Other similar tools already exist with clever features like autodiscovery, but that
 approach requires the code to be run on a host within that network segment for the zeroconf/Bonjour to work.
