@@ -16,9 +16,10 @@ Home Assistant, for example).
 
 ## How it works
 
-* Device information fetched via the /shelly API route
-* Available firmware versions are queried using the Shelly firmware API
+* Model and current firmware information fetched from the device directly via the /shelly API route
+* Available firmware versions are queried from the Shelly firmware API (api.shelly.cloud)
 * If there is a newer firmware available, we set up a temporary socket server to respond to HTTP requests, and invoke the /ota API on the device to trigger the download and installation of the new firmware
+* There is no connection from the Shelly device to the outside, it only accesses the webservice opened by the OTA tool
 
 ## Usage
 
