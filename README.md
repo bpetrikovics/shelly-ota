@@ -7,6 +7,7 @@ internet connectivity. Other similar tools already exist with clever features li
 approach requires the code to be run on a host within that network segment for the zeroconf/Bonjour to work.
 
 Some examples of other implementations I've checked and learned from:
+
 * https://github.com/ruimarinho/shelly-updater
 * https://github.com/bjuretko/shelly-offline-ota-update
 
@@ -18,13 +19,34 @@ Home Assistant, for example).
 
 * Model and current firmware information fetched from the device directly via the /shelly API route
 * Available firmware versions are queried from the Shelly firmware API (api.shelly.cloud)
-* If there is a newer firmware available, we set up a temporary socket server to respond to HTTP requests, and invoke the /ota API on the device to trigger the download and installation of the new firmware
+* If there is a newer firmware available, we set up a temporary socket server to respond to HTTP requests, and invoke
+  the /ota API on the device to trigger the download and installation of the new firmware
 * There is no connection from the Shelly device to the outside, it only accesses the webservice opened by the OTA tool
+
+## Installation
+
+Easiest is to install to a virtualenv directly from the source tree (please make sure you have python3 installed):
+
+```bash
+pip install virtualenv
+git clone https://github.com/bpetrikovics/shelly-ota.git
+cd shelly-ota
+virtualenv -p python3 venv
+source venv/bin/activate
+pip install -e .
+```
+
+You can also build a python package that you can then install inside or outside of a virtualenv:
+
+```bash
+python3 setup.py sdist
+pip install dist/shelly-ota*tar.gz
+```
 
 ## Usage
 
 ```
-usage: shelly-ota.py [-h] [-b BINDADDR] [-p PORT] -t TARGET [-v] [-n]
+usage: shelly-ota [-h] [-b BINDADDR] [-p PORT] -t TARGET [-v] [-n]
 
 Tool to upgrade Shelly devices that do not have direct internet connectivity
 
@@ -39,11 +61,14 @@ optional arguments:
   -n, --dryrun          Don't actually perform upgrade
 ```
 
-* Will try to autodetect the bind address based on the interface that is related to the default gateway. IN case it's not the one you want to use, specify it with -b; this should correspond to an IP address reachable by the Shelly device.
+* Will try to autodetect the bind address based on the interface that is related to the default gateway. IN case it's
+  not the one you want to use, specify it with -b; this should correspond to an IP address reachable by the Shelly
+  device.
 * Port is defaulted to 8080
 * Target can be a single device or a comma-separated list
 
-If you want to update multiple devices of the same kind, the best is to do it in one batch as the temporary update server will cache the
+If you want to update multiple devices of the same kind, the best is to do it in one batch as the temporary update
+server will cache the
 firmware file between requests, in memory.
 
 Output will look like this:

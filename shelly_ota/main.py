@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 
-import sys
 import os
-import os.path
+import sys
 import argparse
 import logging
-import threading
 import concurrent.futures
 
-import lib.venvtools as venvtools
-from lib.shelly import ShellyFirmwareApi, ShellyDevice
-from lib.updateserver import UpdateServer
+app_dir = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(app_dir)
 
 
-venvtools.activate(os.path.abspath(os.path.dirname(__file__)))
-import netifaces  # noqa: E402  # make sure we consider any venv before loading
+from shelly import ShellyFirmwareApi, ShellyDevice
+from updateserver import UpdateServer
+
+import netifaces
 
 
 def ifdetect():
@@ -29,7 +28,7 @@ def ifdetect():
     return addrs[0]['addr']
 
 
-if __name__ == '__main__':
+def main():
     default_bind = ifdetect()
 
     parser = argparse.ArgumentParser(
@@ -108,3 +107,7 @@ if __name__ == '__main__':
             else:
                 logger.warning(
                     '%s: No successful download within timeout period', device.address)
+
+
+if __name__ == '__main__':
+    main()
