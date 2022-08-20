@@ -39,7 +39,7 @@ pip install -e .
 You can also build a python package that you can then install inside or outside of a virtualenv:
 
 ```bash
-python3 setup.py sdist
+python3 -m build
 pip install dist/shelly-ota*tar.gz
 ```
 
