@@ -1,4 +1,3 @@
-from re import A
 import sys
 import os
 import logging
