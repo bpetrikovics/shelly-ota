@@ -17,7 +17,7 @@ class ShellyDevice:
         return f'<ShellyDevice({self._address}>)'
 
     @classmethod
-    def discover(self, address):
+    def discover(cls, address):
         logger.debug('%s: Discovering device', address)
         try:
             res = requests.get(f'http://{address}/shelly')
@@ -50,7 +50,7 @@ class ShellyDevice:
     def firmware(self):
         return self._data.get('fw')
 
-    def request_ota(self, url, dryrun):
+    def request_ota(self, url, auth_provider, dryrun):
         logger.info('%s: Will instruct Shelly to download firmware from: %s',
                     self._address, url)
         logger.info('%s: Shelly device API call: %s', self._address,
@@ -59,7 +59,7 @@ class ShellyDevice:
         if dryrun:
             logger.info('dry-run: skipping OTA call')
         else:
-            res = requests.get(f'http://{self._address}/ota?url={url}')
+            res = requests.get(f'http://{self._address}/ota?url={url}', auth=auth_provider.get_auth_for(self))
             if res.status_code != 200:
                 logger.error('OTA update error')
 

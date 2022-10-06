@@ -6,11 +6,13 @@ import argparse
 import logging
 import concurrent.futures
 
+
 app_dir = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(app_dir)
 
 
 from shelly import ShellyFirmwareApi, ShellyDevice
+from auth import AuthProvider
 from updateserver import UpdateServer
 
 import netifaces
@@ -56,6 +58,16 @@ def main():
                         default=False,
                         help='Don\'t actually perform upgrade'
                         )
+    parser.add_argument('--auth_env',
+                        required=False,
+                        default=None,
+                        help='Environment variable to load single user:password pair from, will be used for all password protected devices' 
+                        )
+    parser.add_argument('--auth_file',
+                        required=False,
+                        default=None,
+                        help='Full path to a file containing credential rule definitions for password protected devices (see README)' 
+                        )
     args = parser.parse_args()
 
     logger = logging.getLogger('shelly-ota')
@@ -73,6 +85,8 @@ def main():
     api = ShellyFirmwareApi()
     server = UpdateServer(args)
 
+    auth_provider = AuthProvider(args)
+
     if args.dryrun:
         logger.info('Dry-run mode, will not actually perform updates')
 
@@ -84,6 +98,8 @@ def main():
             continue
 
         logger.info('%s: Device type is %s', device.address, device.model)
+        if device.has_auth:
+            logger.info('%s: Device has password protection turned on', device.address)
         logger.info('%s: Current firmware version is %s',
                     device.address, device.firmware)
 
@@ -101,6 +117,7 @@ def main():
             future = executor.submit(server.serve_once)
             device.request_ota(
                 f'http://{args.bindaddr}:{args.port}/' + latest.url.split('/')[-1],
+                auth_provider,
                 args.dryrun)
             if future.result():
                 logger.warning('%s: File was downloaded', device.address)
