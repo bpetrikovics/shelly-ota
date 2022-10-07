@@ -41,6 +41,9 @@ class AuthProvider:
                 sys.exit(-1)
 
     def get_auth_for(self, device):
+        if not device:
+            return None
+
         if self.auth_mode == AUTH_NONE:
             return None
         

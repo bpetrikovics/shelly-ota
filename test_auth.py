@@ -1,3 +1,4 @@
+from multiprocessing import dummy
 import os
 import pytest
 import argparse
@@ -47,9 +48,10 @@ def multi_auth_provider(multi_args):
 def dummy_device():
     return ShellyDevice('1.2.3.4', {'type': 'DUMMY', 'mac': '00:00:00:00:00:00'})
 
-def test_no_auth(no_auth_provider):
+def test_no_auth(no_auth_provider, dummy_device):
     assert no_auth_provider is not None
     assert no_auth_provider.get_auth_for(None) == None
+    assert no_auth_provider.get_auth_for(dummy_device) == None
 
 def test_simple_auth(simple_auth_provider, dummy_device):
     assert simple_auth_provider.get_auth_for(dummy_device) == ('user', 'pass')
