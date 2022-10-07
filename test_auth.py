@@ -2,7 +2,6 @@ from multiprocessing import dummy
 import os
 import pytest
 import argparse
-import logging
 from shelly_ota.auth import AuthProvider
 from shelly_ota.shelly import ShellyDevice
 
@@ -50,8 +49,8 @@ def dummy_device():
 
 def test_no_auth(no_auth_provider, dummy_device):
     assert no_auth_provider is not None
-    assert no_auth_provider.get_auth_for(None) == None
-    assert no_auth_provider.get_auth_for(dummy_device) == None
+    assert no_auth_provider.get_auth_for(None) is None
+    assert no_auth_provider.get_auth_for(dummy_device) is None
 
 def test_simple_auth(simple_auth_provider, dummy_device):
     assert simple_auth_provider.get_auth_for(dummy_device) == ('user', 'pass')
