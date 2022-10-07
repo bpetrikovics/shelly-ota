@@ -15,4 +15,4 @@ auth:
     model: SHPLG-S
     creds:
       user: test3_user
-      password: test3_pass
+      pass: test3_pass
