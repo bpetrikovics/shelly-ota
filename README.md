@@ -1,6 +1,6 @@
 # Shelly OTA update tool
 
-[![CodeQL](https://github.com/bpetrikovics/shelly-ota/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/bpetrikovics/shelly-ota/actions/workflows/codeql-analysis.yml)
+[![CodeQL](https://github.com/bpetrikovics/shelly-ota/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/bpetrikovics/shelly-ota/actions/workflows/codeql-analysis.yml) [![Tests](https://github.com/bpetrikovics/shelly-ota/actions/workflows/python-ci.yml/badge.svg)](https://github.com/bpetrikovics/shelly-ota/actions/workflows/python-ci.yml)
 
 This tool helps to upgrade Shelly devices that are behind a strict firewall or on a network segment without
 internet connectivity. Other similar tools already exist with clever features like autodiscovery, but that
@@ -47,19 +47,25 @@ pip install dist/shelly-ota*tar.gz
 ## Usage
 
 ```
-usage: shelly-ota [-h] [-b BINDADDR] [-p PORT] -t TARGET [-v] [-n]
+usage: shelly-ota [-h] [-b BINDADDR] [-p PORT] -t TARGET [-v] [-n] [--auth_env AUTH_ENV]
+                  [--auth_file AUTH_FILE]
 
 Tool to upgrade Shelly devices that do not have direct internet connectivity
 
 optional arguments:
   -h, --help            show this help message and exit
   -b BINDADDR, --bindaddr BINDADDR
-                        Interface address (IP) to listen on (default: XX.XX.XX.XX)
+                        Interface address (IP) to listen on (default: 172.18.250.115)
   -p PORT, --port PORT  Port number for the OTA server
   -t TARGET, --target TARGET
                         Device address(es) or hostname(s) to upgrade, comma separated
   -v, --verbose         Increase detail of logging
   -n, --dryrun          Don't actually perform upgrade
+  --auth_env AUTH_ENV   Environment variable to load single user:password pair from, will be used
+                        for all password protected devices
+  --auth_file AUTH_FILE
+                        Full path to a file containing credential rule definitions for password
+                        protected devices (see README)
 ```
 
 * Will try to autodetect the bind address based on the interface that is related to the default gateway. IN case it's
