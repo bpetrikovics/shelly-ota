@@ -70,11 +70,11 @@ def main():
                         )
     args = parser.parse_args()
 
-    logger = logging.getLogger('shelly-ota')
     logging.basicConfig(
         level=logging.DEBUG if args.verbose is True else logging.INFO,
         format='%(asctime)s %(name)s %(levelname)s %(message)s',
         datefmt='%m/%d/%Y %H:%M:%S')
+    logger = logging.getLogger('shelly-ota')
 
     if args.bindaddr is None:
         logger.error('Bind address could not be determined, please pass a correct one with --bindaddr')

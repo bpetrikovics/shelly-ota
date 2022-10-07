@@ -1,6 +1,7 @@
 import sys
 import os
 import logging
+import yaml
 
 
 AUTH_NONE = 0
@@ -30,9 +31,14 @@ class AuthProvider:
                 self.auth_mode = AUTH_SINGLE
 
         elif args.auth_file:
-            logger.debug("Auth mode is File/Rule based, not implemented yet!")
+            logger.debug(f"Auth mode is File/Rule based, loading from {args.auth_file}")
             self.auth_mode = AUTH_MULTI
-            raise NotImplementedError
+            try:
+                with open(args.auth_file, 'r') as rule_file:
+                    self.auth_rules = yaml.safe_load(rule_file.read()).get('auth')
+            except Exception as exc:
+                logger.error("Unable to load auth rules: %s", exc)
+                sys.exit(-1)
 
     def get_auth_for(self, device):
         if self.auth_mode == AUTH_NONE:
@@ -42,7 +48,22 @@ class AuthProvider:
             return (self.auth_user, self.auth_pass)
 
         if self.auth_mode == AUTH_MULTI:
-            raise NotImplementedError
+            for rule in self.auth_rules:
+                if not rule.get('creds') or not rule.get('match'):
+                    continue
+
+                match_type = rule['match']
+                match_value = rule.get(match_type, None)
+
+                if not match_value:
+                    continue
+
+                if hasattr(device, match_type):
+                    attr = getattr(device, match_type)
+                    if attr == match_value:
+                        return (rule['creds'].get('user'), rule['creds'].get('pass'))
+
+            return None
 
 
 logger = logging.getLogger(__name__)
