@@ -6,7 +6,7 @@ auth:
       pass: test1_pass
 
   - match: address
-    address: 1.2.3.4
+    address: 1.1.1.1
     creds:
       user: test2_user
       pass: test2_pass
