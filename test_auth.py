@@ -1,9 +1,9 @@
-from multiprocessing import dummy
 import os
 import pytest
 import argparse
 from shelly_ota.auth import AuthProvider
 from shelly_ota.shelly import ShellyDevice
+
 
 @pytest.fixture
 def empty_args():
@@ -45,7 +45,11 @@ def multi_auth_provider(multi_args):
 
 @pytest.fixture
 def dummy_device():
-    return ShellyDevice('1.2.3.4', {'type': 'DUMMY', 'mac': '00:00:00:00:00:00'})
+    return ShellyDevice(
+        '1.2.3.4',
+        {'type': 'DUMMY', 'mac': '00:00:00:00:00:00'}
+        )
+
 
 def test_no_auth(no_auth_provider, dummy_device):
     assert no_auth_provider is not None

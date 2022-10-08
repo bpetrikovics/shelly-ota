@@ -6,7 +6,7 @@ import yaml
 
 AUTH_NONE = 0
 AUTH_SINGLE = 1
-AUTH_MULTI=2
+AUTH_MULTI = 2
 
 
 class AuthProvider:
@@ -14,9 +14,9 @@ class AuthProvider:
         if args.auth_env and args.auth_file:
             logger.critical("Cannot specify both auth_env and auth_file, exiting")
             sys.exit(-1)
-        
+
         self.auth_mode = AUTH_NONE
-        
+
         if args.auth_env:
             logger.debug("Auth mode is Single User/Pass, via env variable %s", args.auth_env)
             auth_env = os.getenv(args.auth_env)
@@ -46,7 +46,7 @@ class AuthProvider:
 
         if self.auth_mode == AUTH_NONE:
             return None
-        
+
         if self.auth_mode == AUTH_SINGLE:
             return (self.auth_user, self.auth_pass)
 
