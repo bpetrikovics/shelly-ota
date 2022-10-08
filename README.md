@@ -36,12 +36,21 @@ source venv/bin/activate
 pip install -e .
 ```
 
-You can also build a python package that you can then install inside or outside of a virtualenv:
+You can also build a python package that you can then install inside of a virtualenv:
 
 ```bash
 python3 -m pip install build
 python3 -m build
 pip install dist/shelly-ota*tar.gz
+```
+
+Or outside of a virtualenv:
+
+```bash
+python3 -m pip install build
+python3 -m build
+deactivate
+pip install dist/shelly-ota-*.tar.gz
 ```
 
 ## Usage
