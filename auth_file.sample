@@ -1,0 +1,18 @@
+auth:
+  - match: mac
+    mac: 00:00:00:00:00:00
+    creds:
+      user: test1_user
+      pass: test1_pass
+
+  - match: address
+    address: 1.1.1.1
+    creds:
+      user: test2_user
+      pass: test2_pass
+
+  - match: model
+    model: SHPLG-S
+    creds:
+      user: test3_user
+      pass: test3_pass
