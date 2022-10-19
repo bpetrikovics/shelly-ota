@@ -22,6 +22,7 @@ Home Assistant, for example).
 * If there is a newer firmware available, we set up a temporary socket server to respond to HTTP requests, and invoke
   the /ota API on the device to trigger the download and installation of the new firmware
 * There is no connection from the Shelly device to the outside, it only accesses the webservice opened by the OTA tool
+* Devices with restricted login are now supported
 
 ## Installation
 
@@ -114,6 +115,25 @@ $ ./shelly-ota -b 10.xx.xx.xx -t shellyplug-s-XXXXXX -v
 03/07/2021 22:24:17 lib.updateserver DEBUG 10.yy.yy.yy: Serving firmware
 10.yy.yy.yy - - [07/Mar/2021 22:24:17] "GET /SHPLG-S.zip HTTP/1.1" 200 -
 03/07/2021 22:24:26 shelly-ota WARNING shellyplug-s-XXXXXX: File was downloaded
+```
+
+## Authentication
+
+### Via environment
+
+If all of your devices use the same login credentials, you can set up an environment variable with the username and password, and tell shelly-ota what environment to look for, e.g.:
+
+```
+$ export SHELLY_AUTH=admin:password
+$ shelly-ota -t x.x.x.x --auth_env SHELLY_AUTH
+```
+
+### Using a credentials file
+
+If you have different devices or groups of devices using different passwords, you can use an inventory/credentials file for storing the usernames and passwords. Check the provided ```auth_file.sample```.
+
+```
+$ shelly-ota -t x.x.x.x --auth_file /path/to/your/auth.file
 ```
 
 Any issues, questions, suggestions, please let me know.
