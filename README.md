@@ -53,6 +53,20 @@ python3 -m build
 deactivate
 pip install dist/shelly-ota-*.tar.gz
 ```
+## Updating
+
+Ensure you are removing the correct version:
+
+```
+pip uninstall shelly_ota
+cd shelly-ota
+rm dist/shelly-ota-2022.8.20.tar.gz
+git pull
+python3 -m pip install build
+python3 -m build
+pip install dist/shelly-ota*tar.gz
+```
+
 
 ## Usage
 
